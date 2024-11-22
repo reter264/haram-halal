@@ -145,8 +145,9 @@
                 return;
             }
 
-            // Проверка корректности номера телефона
-            if (!phone || !phone.match(/^\+\d+$/)) {
+            // Проверка корректности номера телефона (начинается с + и далее только цифры)
+            const phonePattern = /^\+[\d]+$/;
+            if (!phone || !phonePattern.test(phone)) {
                 document.getElementById('testMessage').textContent = "Введите корректный номер телефона!";
                 return;
             }
@@ -195,4 +196,5 @@
     </script>
 </body>
 </html>
+
 
